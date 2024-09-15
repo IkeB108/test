@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Split Screen Layout</title>
+    <script src="hammer.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -13,7 +14,7 @@
             background-color: #bedbbf;
             font-family:sans-serif;
         }
-        .container {
+        .page-viewer-container {
             display: flex;
             height: 100vh;
         }
@@ -102,7 +103,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
+  <p>2</p>
+    <div class="page-viewer-container">
         <!-- <div class="image-section">
             <div class="image-row">
                 <div class="image-container left-page">
@@ -154,4 +156,31 @@
         </div>
     </div>
 </body>
+<script>
+  // const hammertime = new Hammer(document)
+  
+  // Create a Hammer instance bound to the entire document
+var hammer = new Hammer(document.body);
+
+// Set Hammer to recognize multitouch
+hammer.get('pinch').set({ enable: true });  // Pinch is often used with multitouch
+hammer.get('pan').set({ enable: true });    // Pan is useful for detecting movement
+
+// Listen for 'touchstart' and check if four fingers are on the screen
+hammer.on('touchstart', function(event) {
+  if (event.pointers.length === 4) {
+    alert("four fingers")
+    // Trigger your event or custom function here
+  }
+});
+
+// Optionally, you can also listen for 'touchmove' or 'touchend' if needed
+hammer.on('touchend', function(event) {
+  if (event.pointers.length === 4) {
+    console.log('Four fingers released from the screen!');
+  }
+});
+
+  
+</script>
 </html>
