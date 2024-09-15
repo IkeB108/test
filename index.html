@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Split Screen Layout</title>
-    <script src="hammer.js"></script>
+    <script src="jquery.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -19,7 +19,7 @@
             height: 100vh;
         }
         .image-section {
-            width: 66.67%;
+            width: 80%;
             display: flex;
             flex-direction: column;
         }
@@ -29,7 +29,7 @@
         }
         .image-container {
             flex: 1;
-            padding: 10px;
+            padding: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,9 +41,10 @@
             object-fit: contain;
         }
         .button-section {
-            width: 33.33%;
+            width: 20%;
             overflow-y: auto;
-            padding: 20px;
+            padding-left:5px;
+            padding-right: 5px;
             box-sizing: border-box;
         }
         .worksheet-button {
@@ -102,7 +103,7 @@
         .color-button:nth-child(4) { background-color: #FFA07A; }
     </style>
 </head>
-<body>
+<body onload="onBodyLoad()">
   <p>2</p>
     <div class="page-viewer-container">
         <!-- <div class="image-section">
@@ -120,12 +121,12 @@
         <div class="image-section">
           <div class="image-row">
               <div class="image-container left-page">
-                  <img src="mypdf/mypdf-02.jpg" alt="Left Page">
-                  <div class="page-number">2</div>
+                  <img src="mypdf/mypdf-02.jpg" alt="Left Page" id="leftPageImage">
+                  <div class="page-number" id="leftPageNumber">2</div>
               </div>
               <div class="image-container right-page">
-                  <img src="mypdf/mypdf-03.jpg" alt="Right Page">
-                  <div class="page-number">3</div>
+                  <img src="mypdf/mypdf-03.jpg" alt="Right Page" id="rightPageImage">
+                  <div class="page-number" id="rightPageNumber">3</div>
               </div>
           </div>
         </div>
@@ -157,30 +158,58 @@
     </div>
 </body>
 <script>
-  // const hammertime = new Hammer(document)
   
-  // Create a Hammer instance bound to the entire document
-var hammer = new Hammer(document.body);
-
-// Set Hammer to recognize multitouch
-hammer.get('pinch').set({ enable: true });  // Pinch is often used with multitouch
-hammer.get('pan').set({ enable: true });    // Pan is useful for detecting movement
-
-// Listen for 'touchstart' and check if four fingers are on the screen
-hammer.on('touchstart', function(event) {
-  if (event.pointers.length === 4) {
-    alert("four fingers")
-    // Trigger your event or custom function here
+  let touchstartx = null
+  let touchendx = 0
+  let currentPage = 2
+  let pageOnTouchStart = null
+  function onBodyLoad(){
+    document.body.addEventListener( "touchend", onBodyTouchEnd)
+    document.body.addEventListener( "touchmove", onBodyTouchMove)
+    document.querySelector(".image-section").addEventListener("touchstart", onImageSectionTouchStart)
+    // console.log("loaded")
   }
-});
-
-// Optionally, you can also listen for 'touchmove' or 'touchend' if needed
-hammer.on('touchend', function(event) {
-  if (event.pointers.length === 4) {
-    console.log('Four fingers released from the screen!');
+  function onImageSectionTouchStart(e){
+    // console.log("touch")
+    touchstartx = e.touches[0].screenX
+    pageOnTouchStart = currentPage
+    // console.log(touchstartx)
+    console.log(currentPage)
   }
-});
-
+  
+  function onBodyTouchMove(e){
+    if(touchstartx !== null){
+      touchendx = e.touches[0].screenX
+      let diff = (touchendx - touchstartx)
+      let onePageDragDistance = window.innerWidth/20
+      let pagesAdvanced = Math.round(diff/onePageDragDistance)
+      currentPage = pageOnTouchStart + pagesAdvanced
+      updateImagePages()
+    }
+  }
+  
+  function onBodyTouchEnd(e){
+    // console.log("end")
+    console.log(currentPage)
+    
+    touchstartx = null
+    pageOnTouchStart = null
+  }
+  
+  function updateImagePages(){
+    let leftPagePadded = currentPage.toString().padStart(2, "0")
+    let leftPageSrc = `mypdf/mypdf-${leftPagePadded}.jpg`
+    if(currentPage == 0){
+      leftPageSrc = "white.jpg"
+    }
+    let rightPagePadded = (currentPage+1).toString().padStart(2, "0")
+    let rightPageSrc = `mypdf/mypdf-${rightPagePadded}.jpg`
+    $("#leftPageImage").attr("src", leftPageSrc)
+    $("#rightPageImage").attr("src", rightPageSrc)
+    
+    $("#leftPageNumber").text(currentPage)
+    $("#rightPageNumber").text(currentPage + 1)
+  }
   
 </script>
 </html>
