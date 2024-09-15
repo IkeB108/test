@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Screen Layout</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #bedbbf;
+            font-family:sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .image-section {
+            width: 66.67%;
+            display: flex;
+            flex-direction: column;
+        }
+        .image-row {
+            display: flex;
+            height: 100%;
+        }
+        .image-container {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .button-section {
+            width: 33.33%;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .worksheet-button {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 3px;
+            background-color: #00000033;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size:1.2em;
+        }
+        .worksheet-button[data-selected="true"] {
+          background-color: #00000071;
+        }
+        
+        #addWorksheetButton {
+          margin-bottom: 10px;
+          box-shadow: rgba(0, 0, 0, 0.384) 2px 2px 2px 2px;
+          
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            font-size: 5em;
+            font-weight: bold;
+            color:#0000004d
+        }
+        
+        .left-page .page-number {
+            left: 20px;
+        }
+        .right-page .page-number {
+            right: 20px;
+        }
+        
+        .color-buttons {
+            display: flex;
+            justify-content: right;
+            margin-bottom: 15px;
+        }
+        .color-button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+        .color-button:nth-child(1) { background-color: #FF6B6B; }
+        .color-button:nth-child(2) { background-color: #4ECDC4; }
+        .color-button:nth-child(3) { background-color: #45B7D1; }
+        .color-button:nth-child(4) { background-color: #FFA07A; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- <div class="image-section">
+            <div class="image-row">
+                <div class="image-container left-page">
+                    <img src="/mypdf/mypdf-02.jpg" alt="Left Page">
+                    <div class="page-number">2</div>
+                </div>
+                <div class="image-container right-page">
+                    <img src="/mypdf/mypdf-03.jpg" alt="Right Page">
+                    <div class="page-number">3</div>
+                </div>
+            </div>
+        </div> -->
+        <div class="image-section">
+          <div class="image-row">
+              <div class="image-container left-page">
+                  <img src="/mypdf/mypdf-02.jpg" alt="Left Page">
+                  <div class="page-number">2</div>
+              </div>
+              <div class="image-container right-page">
+                  <img src="/mypdf/mypdf-03.jpg" alt="Right Page">
+                  <div class="page-number">3</div>
+              </div>
+          </div>
+        </div>
+        <div class="button-section">
+          <div class="color-buttons">
+              <button class="color-button"></button>
+              <button class="color-button"></button>
+              <button class="color-button"></button>
+              <button class="color-button"></button>
+          </div>
+          <button class="worksheet-button" data-selected="false" id="addWorksheetButton">+ Worksheet</button>
+          <button class="worksheet-button" data-selected="true">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+          <button class="worksheet-button" data-selected="false">WS 2</button>
+        </div>
+    </div>
+</body>
+</html>

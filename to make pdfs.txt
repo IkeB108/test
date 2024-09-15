@@ -1,0 +1,4 @@
+Open WSL in VS Code (click "remote explorer" button by extensions). In the terminal:
+pdftoppm file1.pdf outputfilename -jpg -r 50
+
+(-r 50 = 50 dpm. Default is 150)
