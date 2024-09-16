@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Input</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        .number-input-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            font-family: Arial, sans-serif;
+        }
+        .number-input-edge-buttons {
+            display: flex;
+            flex-direction: column;
+            width: 15vw;
+        }
+        .number-input-middle-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .number-input-middle-row {
+            flex: 1;
+            display: flex;
+        }
+        .number-input-middle-buttons {
+            display: flex;
+            flex-direction: column;
+            /* flex: 1; */
+            width: 15vw;
+        }
+        .number-input-output-display {
+            flex: 1;
+            display: flex;
+            /* justify-content: center;
+            align-items:center; */
+            font-size: 5vw;
+            font-weight: bold;
+            /* background-color: #00000057; */
+        }
+        .number-input-button {
+            flex: 1;
+            font-size: 3vw;
+            font-weight: bold;
+            border: solid;
+            border-color:#0000001c;
+            border-width: 1px;
+            background-color: #0000001f;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #number-input-button-clear {
+            background-color: #ffcccc;
+        }
+        #number-input-button-exit {
+            background-color: #ccccff;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      .search-result-container {
+        /* width: 300px; */
+        /* height: 100%; */
+        flex: 1;
+        /* border: 1px solid #000; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .search-number {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .search-result-button-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-result-button {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        /* font-size: 16px; */
+        cursor: default;
+        font-size: 1.5em;
+        border-style:none;
+        /* background-color: #0000001f; */
+        background-color: #00000000;
+        cursor:pointer;
+      }
+    </style>
+    <script src="google.fastbutton.js"></script>
+</head>
+<body onload="onBodyLoad()">
+    <div class="number-input-container">
+        <div class="number-input-edge-buttons">
+            <button id="number-input-button-0" class="number-input-button">0</button>
+            <button id="number-input-button-1" class="number-input-button">1</button>
+            <button id="number-input-button-2" class="number-input-button">2</button>
+        </div>
+        <div class="number-input-middle-section">
+            <div class="number-input-middle-row">
+                <div class="number-input-middle-buttons">
+                    <button id="number-input-button-6" class="number-input-button">6</button>
+                    <button id="number-input-button-7" class="number-input-button">7</button>
+                    <button id="number-input-button-8" class="number-input-button">8</button>
+                </div>
+                <div class="search-result-container">
+                  <div class="search-number" id="searchNumber">0</div>
+                  <div class="search-result-button-list">
+                    <button class="search-result-button" id="searchResultButton1">Button 1</button>
+                    <button class="search-result-button" id="searchResultButton2">Button 1</button>
+                    <button class="search-result-button" id="searchResultButton3">Button 1</button>
+                    <button class="search-result-button" id="searchResultButton4">Button 1</button>
+                    <button class="search-result-button" id="searchResultButton5">Button 1</button>
+                    <button class="search-result-button" id="searchResultButton6">Button 1</button>
+                  </div>
+                </div>
+                <div class="number-input-middle-buttons">
+                    <button  id="number-input-button-9" class="number-input-button">9</button>
+                    <button  id="number-input-button-clear" class="number-input-button" onclick="clearInput()">Clear</button>
+                    <button  id="number-input-button-exit" class="number-input-button">Exit</button>
+                </div>
+            </div>
+        </div>
+        <div class="number-input-edge-buttons">
+            <button id="number-input-button-3" class="number-input-button">3</button>
+            <button id="number-input-button-4" class="number-input-button">4</button>
+            <button id="number-input-button-5" class="number-input-button">5</button>
+        </div>
+    </div>
+
+    <script>
+        let inputValue = '0';
+        const searchNumberDisplay = document.getElementById('searchNumber');
+
+        function appendNumber(number) {
+            inputValue += number;
+            updateDisplay();
+        }
+
+        function clearNumberInput() {
+            inputValue = '0';
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+          searchNumberDisplay.textContent = inputValue || '0';
+        }
+        
+        
+        function onBodyLoad(){
+          
+          for(let i = 0; i <= 9; i ++){
+            new FastButton(document.getElementById("number-input-button-" + i), function(){
+              appendNumber(i)
+            });
+          }
+          
+          new FastButton(document.getElementById("number-input-button-clear"), clearNumberInput)
+          new FastButton(document.getElementById("number-input-button-exit"), exitNumberInput)
+        }
+        
+        function exitNumberInput(){
+          console.log("exit")
+        }
+    </script>
+</body>
+</html>
